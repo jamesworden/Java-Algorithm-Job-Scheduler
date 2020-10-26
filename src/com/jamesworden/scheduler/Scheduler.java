@@ -45,19 +45,19 @@ public class Scheduler {
 
 		// First come first serve
 		System.out.println("---------- FCFS ----------");
-		FirstComeFirstServe firstComeFirstServe = new FirstComeFirstServe(jobs);
+		FirstComeFirstServe firstComeFirstServe = new FirstComeFirstServe(new ArrayList<>(jobs));
 		firstComeFirstServe.printStatistics();
 		System.out.println();
 
 		// First come first serve
 		System.out.println("---------- SJF ----------");
-		ShortestJobFirst shortestJobFirst = new ShortestJobFirst(jobs);
+		ShortestJobFirst shortestJobFirst = new ShortestJobFirst(new ArrayList<>(jobs));
 		shortestJobFirst.printStatistics();
 		System.out.println();
 
 		// First come first serve
 		System.out.println("---------- SRTF ----------");
-		ShortestRemainingTimeFirst shortestRemainingTimeFirst = new ShortestRemainingTimeFirst(jobs);
+		ShortestRemainingTimeFirst shortestRemainingTimeFirst = new ShortestRemainingTimeFirst(new ArrayList<>(jobs));
 		shortestRemainingTimeFirst.printStatistics();
 		System.out.println();
 
