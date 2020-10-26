@@ -26,7 +26,7 @@ public class GanttChart {
 
 		// Updates chart and adds a space at the end to compensate for extra timeline digits
 		this.chart += " " + id +" |";
-		for (int i = 0; i < String.valueOf(time).length() - 1; i++) {
+		for (int i = 0; i < String.valueOf(time).length(); i++) {
 			this.chart += " ";
 		}
 

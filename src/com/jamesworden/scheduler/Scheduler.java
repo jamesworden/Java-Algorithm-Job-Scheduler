@@ -40,25 +40,24 @@ public class Scheduler {
 
 		// Print Jobs
 		System.out.println("---------- Jobs ----------");
-		displayJobs();
+		for (Job job : jobs) {
+			System.out.println("Job " + job.getId() + " - "+ job.toString());
+		}
 		System.out.println();
 
 		// First come first serve
 		System.out.println("---------- FCFS ----------");
-		FirstComeFirstServe firstComeFirstServe = new FirstComeFirstServe(new ArrayList<>(jobs));
-		firstComeFirstServe.printStatistics();
+		new FirstComeFirstServe(new ArrayList<>(jobs)).printStatistics();
 		System.out.println();
 
-		// First come first serve
+		// Shortest job first
 		System.out.println("---------- SJF ----------");
-		ShortestJobFirst shortestJobFirst = new ShortestJobFirst(new ArrayList<>(jobs));
-		shortestJobFirst.printStatistics();
+		new ShortestJobFirst(new ArrayList<>(jobs)).printStatistics();
 		System.out.println();
 
-		// First come first serve
+		// Shortest remaining time first
 		System.out.println("---------- SRTF ----------");
-		ShortestRemainingTimeFirst shortestRemainingTimeFirst = new ShortestRemainingTimeFirst(new ArrayList<>(jobs));
-		shortestRemainingTimeFirst.printStatistics();
+		new ShortestRemainingTimeFirst(new ArrayList<>(jobs)).printStatistics();
 		System.out.println();
 
 		System.out.println("Thank you for using James's Scheduler!");
@@ -75,14 +74,5 @@ public class Scheduler {
 			scanner.next();
 		}
 		return Math.abs(scanner.nextInt()); // Convert negative input to positive
-	}
-
-	/**
-	 * Loops through jobs and prints data for each
-	 */
-	private static void displayJobs() {
-		for (Job job : jobs) {
-			System.out.println("Job " + job.getId() + " - "+ job.toString());
-		}
 	}
 }
