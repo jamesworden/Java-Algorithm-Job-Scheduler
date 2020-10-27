@@ -17,9 +17,12 @@ public class GanttChart {
 	}
 
 	public void addJob(int id, int time) {
+		// System.out.println("JOB WITH ID: " + id + " ADDED FOR " + time + " UNITS OF TIME.");
 
-		// Ensure the job has time to it
-		if (time <= 0) { return; }
+		// Ensure the job has a valid time and id
+		if (time <= 0 || id <= 0) {
+			return;
+		}
 
 		// Update time
 		this.time += time;

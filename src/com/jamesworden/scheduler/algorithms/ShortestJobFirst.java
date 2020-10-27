@@ -10,7 +10,6 @@ public class ShortestJobFirst extends Algorithm {
 		super(jobs);
 	}
 
-	@Override
 	protected void iterate() {
 
 		// Loop through each job to see which job(s) has the smallest arrival time(s)
@@ -38,36 +37,12 @@ public class ShortestJobFirst extends Algorithm {
 			}
 		}
 
-		// Check if job can start yet
-		int burstTime = currentJob.getBurstTime();
-		arrivalTime = currentJob.getArrivalTime();
-
-		// Remove job from queue
-		jobs.remove(currentJob); // Since the job will be changed, it must be removed now.
-
-		if (arrivalTime >= time) { // Next job has not arrived or has just arrived
-
-			ganttChart.addGap(arrivalTime - time);
-			time = arrivalTime;
-
-			currentJob.setWaitingTime(0);
-			currentJob.setTurnaroundTime(burstTime);
-
-		} else { // Next job has been waiting
-
-			int waitingTime = time - arrivalTime;
-			currentJob.setWaitingTime(waitingTime);
-			currentJob.setTurnaroundTime(waitingTime + burstTime);
+		// If job has not arrived yet create a gap first
+		if (currentJob.getArrivalTime() >= time) {
+			ganttChart.addGap(currentJob.getArrivalTime() - time);
 		}
 
-		int id = currentJob.getId();
-
-		// Update gantt chart
-		ganttChart.addJob(id, burstTime);
-		time += burstTime;
-
-		// Add job to finished jobs arraylist
-		finishedJobs.add(currentJob);
+		completeJob(currentJob);
 	}
 
 }

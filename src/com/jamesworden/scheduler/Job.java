@@ -4,7 +4,7 @@ public class Job {
 
 	private final int id;
 	private final int arrivalTime;
-	private final int burstTime;
+	private int burstTime;
 	private int turnaroundTime;
 	private int waitingTime;
 
@@ -16,6 +16,12 @@ public class Job {
 
 	public int getId() { return id; }
 	public int getArrivalTime() { return arrivalTime; }
+
+	/**
+	 * Made into a public method to allow partial job completions
+	 * @param time New job burst time
+	 */
+	public void setBurstTime(int time) { burstTime = time; }
 	public int getBurstTime() { return burstTime; }
 
 	public int getTurnaroundTime() { return turnaroundTime; }
