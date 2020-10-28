@@ -2,9 +2,9 @@ package com.jamesworden.scheduler;
 
 public class GanttChart {
 
-	private int time;
-	private String chart;
-	private String timeline;
+	private int time; // Total and latest time
+	private String chart; // Chart portion
+	private String timeline; // Timeline portion
 
 	public GanttChart() {
 		this.time = 0;
@@ -12,12 +12,12 @@ public class GanttChart {
 		this.timeline = "Time:   0";
 	}
 
-	public void addGap(int time) {
-		addJob(0, time);
-	}
-
+	/**
+	 * Display a job in the gantt chart
+	 * @param id Id of the job to be displayed; leave as 0 if the job is a gap
+	 * @param time Duration of the job
+	 */
 	public void addJob(int id, int time) {
-		System.out.println("JOB WITH ID: " + id + " ADDED FOR " + time + " UNITS OF TIME.");
 
 		// Ensure the job has a valid time and id
 		if (time <= 0 || id < 0) {
@@ -50,5 +50,12 @@ public class GanttChart {
 
 	public String getChart() { return chart; }
 	public String getTimeline() { return timeline; }
+
+	/**
+	 * Used for debugging
+	 */
+	public void log(int id, int time) {
+		System.out.println("JOB WITH ID: " + id + " ADDED FOR " + time + " UNITS OF TIME.");
+	}
 
 }

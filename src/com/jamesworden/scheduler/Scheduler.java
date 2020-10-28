@@ -1,6 +1,5 @@
 package com.jamesworden.scheduler;
 
-import com.jamesworden.scheduler.algorithms.Algorithm;
 import com.jamesworden.scheduler.algorithms.FirstComeFirstServe;
 import com.jamesworden.scheduler.algorithms.ShortestJobFirst;
 import com.jamesworden.scheduler.algorithms.ShortestRemainingTimeFirst;

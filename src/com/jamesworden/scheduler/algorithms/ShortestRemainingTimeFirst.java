@@ -54,9 +54,10 @@ public class ShortestRemainingTimeFirst extends Algorithm {
 
 		// Find the job with the fastest burst time of the first group
 		Job fastestJob = new Job(0,0,(int) Double.POSITIVE_INFINITY);
+		int fastestJobBurstTime = fastestJob.getBurstTime();
 
 		for (Job job: firstJobs) {
-			if (job.getBurstTime() < fastestJob.getBurstTime()) {
+			if (job.getBurstTime() < fastestJobBurstTime) {
 				fastestJob = job;
 			}
 		}
@@ -69,7 +70,6 @@ public class ShortestRemainingTimeFirst extends Algorithm {
 
 		// Compare the second groups arrival time and the fastest job's burst time
 		int secondGroupArrivalTime = secondJobs.get(0).getArrivalTime();
-		int fastestJobBurstTime = fastestJob.getBurstTime();
 
 		if (secondGroupArrivalTime < fastestJobBurstTime) { // The fastest job will not complete before the next arrives
 			int difference = fastestJobBurstTime - secondGroupArrivalTime;
@@ -79,7 +79,6 @@ public class ShortestRemainingTimeFirst extends Algorithm {
 
 		// Complete fastest job
 		completeJob(fastestJob);
-
 	}
 
 }

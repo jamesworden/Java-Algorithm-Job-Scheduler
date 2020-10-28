@@ -12,7 +12,7 @@ public class ShortestJobFirst extends Algorithm {
 	}
 
 	protected void iterate() {
-		
+
 		// Loop through each job to see which job(s) has the smallest arrival time(s)
 		ArrayList<Integer> arrivedJobIndexes = new ArrayList<>();
 		int arrivalTime = (int) Double.POSITIVE_INFINITY;
@@ -37,7 +37,6 @@ public class ShortestJobFirst extends Algorithm {
 				currentJob = jobs.get(index);
 			}
 		}
-
 		completeJob(currentJob);
 	}
 

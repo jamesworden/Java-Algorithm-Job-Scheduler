@@ -13,7 +13,6 @@ public abstract class Algorithm {
 	static String name;
 	static int time;
 
-
 	public Algorithm(ArrayList<Job> inputJobs) {
 		// Initialize
 		jobs = inputJobs;
@@ -61,12 +60,16 @@ public abstract class Algorithm {
 		}
 	}
 
+	/**
+	 * Handles updating the jobs and finished jobs arraylists, current time, gantt charts, and job statistics.
+	 * @param job Job to be completed
+	 */
 	protected static void completeJob(Job job) {
 
 		// If job has not arrived yet create a gap first
 		if (job.getArrivalTime() >= time) {
 			int gap = job.getArrivalTime() - time;
-			ganttChart.addGap(gap);
+			ganttChart.addJob(0, gap); // A job with id 0 is interpreted as a gap
 			time += gap;
 		}
 
