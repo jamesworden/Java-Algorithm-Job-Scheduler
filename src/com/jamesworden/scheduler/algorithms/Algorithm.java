@@ -10,7 +10,9 @@ public abstract class Algorithm {
 	static ArrayList<Job> jobs;
 	static ArrayList<Job> finishedJobs;
 	static GanttChart ganttChart;
+	static String name;
 	static int time;
+
 
 	public Algorithm(ArrayList<Job> inputJobs) {
 		// Initialize
@@ -32,9 +34,11 @@ public abstract class Algorithm {
 	protected abstract void iterate();
 
 	public void printStatistics() {
+		System.out.println("---------- " + name + " ----------");
 		printGanttChart();
 		printTurnaroundTime();
 		printWaitingTime();
+		System.out.println();
 	}
 
 	public static void printGanttChart() {
@@ -58,6 +62,13 @@ public abstract class Algorithm {
 	}
 
 	protected static void completeJob(Job job) {
+
+		// If job has not arrived yet create a gap first
+		if (job.getArrivalTime() >= time) {
+			int gap = job.getArrivalTime() - time;
+			ganttChart.addGap(gap);
+			time += gap;
+		}
 
 		// Get job data
 		int id = job.getId();

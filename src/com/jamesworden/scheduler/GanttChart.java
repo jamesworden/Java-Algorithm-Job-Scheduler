@@ -8,8 +8,8 @@ public class GanttChart {
 
 	public GanttChart() {
 		this.time = 0;
-		this.chart = "|";
-		this.timeline = "0";
+		this.chart = "Jobs:   |";
+		this.timeline = "Time:   0";
 	}
 
 	public void addGap(int time) {
@@ -17,25 +17,32 @@ public class GanttChart {
 	}
 
 	public void addJob(int id, int time) {
-		// System.out.println("JOB WITH ID: " + id + " ADDED FOR " + time + " UNITS OF TIME.");
+		System.out.println("JOB WITH ID: " + id + " ADDED FOR " + time + " UNITS OF TIME.");
 
 		// Ensure the job has a valid time and id
-		if (time <= 0 || id <= 0) {
+		if (time <= 0 || id < 0) {
 			return;
+		}
+
+		// If job is not a gap, set the id to the job number
+		String chartId = " ";
+		if (id > 0) {
+			chartId = String.valueOf(id);
 		}
 
 		// Update time
 		this.time += time;
 
 		// Updates chart and adds a space at the end to compensate for extra timeline digits
-		this.chart += " " + id +" |";
-		for (int i = 0; i < String.valueOf(time).length(); i++) {
+		this.chart += " " + chartId +" ";
+		for (int i = 0; i < String.valueOf(time).length() - 1; i++) {
 			this.chart += " ";
 		}
+		this.chart += "|";
 
 		// Updates the timeline and adds spaces at the end to compensate for id digits
 		this.timeline += " ";
-		for (int i = 0; i < String.valueOf(id).length(); i++) {
+		for (int i = 0; i < chartId.length(); i++) {
 			this.timeline += " ";
 		}
 		this.timeline += " " + this.time;

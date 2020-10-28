@@ -8,10 +8,11 @@ public class ShortestJobFirst extends Algorithm {
 
 	public ShortestJobFirst(ArrayList<Job> jobs) {
 		super(jobs);
+		name = "SJF";
 	}
 
 	protected void iterate() {
-
+		
 		// Loop through each job to see which job(s) has the smallest arrival time(s)
 		ArrayList<Integer> arrivedJobIndexes = new ArrayList<>();
 		int arrivalTime = (int) Double.POSITIVE_INFINITY;
@@ -35,11 +36,6 @@ public class ShortestJobFirst extends Algorithm {
 			if (jobs.get(index).getBurstTime() < currentJob.getBurstTime()) {
 				currentJob = jobs.get(index);
 			}
-		}
-
-		// If job has not arrived yet create a gap first
-		if (currentJob.getArrivalTime() >= time) {
-			ganttChart.addGap(currentJob.getArrivalTime() - time);
 		}
 
 		completeJob(currentJob);

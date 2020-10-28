@@ -8,6 +8,7 @@ public class ShortestRemainingTimeFirst extends Algorithm {
 
 	public ShortestRemainingTimeFirst(ArrayList<Job> jobs) {
 		super(jobs);
+		name = "SRTF";
 	}
 
 	protected void iterate() {
@@ -18,10 +19,11 @@ public class ShortestRemainingTimeFirst extends Algorithm {
 			return;
 		}
 
-		// Categorize the remaining jobs in terms of the first smallest and second smallest arrival time
-		ArrayList<Job> firstJobs = new ArrayList<Job>();
-		ArrayList<Job> secondJobs = new ArrayList<Job>();
+		// Categorize the remaining jobs in two groups of the first and second smallest arrival times
+		ArrayList<Job> firstJobs = new ArrayList<>();
+		ArrayList<Job> secondJobs = new ArrayList<>();
 
+		// Loop through all jobs to categorize them
 		for (Job job : jobs) {
 			int arrivalTime = job.getArrivalTime();
 
@@ -73,10 +75,10 @@ public class ShortestRemainingTimeFirst extends Algorithm {
 			int difference = fastestJobBurstTime - secondGroupArrivalTime;
 			fastestJob.setBurstTime(difference); // Partial completion
 			time += difference;
-
-		} else { // Complete fastest job
-			completeJob(fastestJob);
 		}
+
+		// Complete fastest job
+		completeJob(fastestJob);
 
 	}
 

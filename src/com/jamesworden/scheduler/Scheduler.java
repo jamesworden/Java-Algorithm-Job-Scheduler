@@ -46,20 +46,10 @@ public class Scheduler {
 		}
 		System.out.println();
 
-		// First come first serve
-		System.out.println("---------- FCFS ----------");
+		// Run and print algorithm statistics
 		new FirstComeFirstServe(new ArrayList<>(jobs)).printStatistics();
-		System.out.println();
-
-		// Shortest job first
-		System.out.println("---------- SJF ----------");
 		new ShortestJobFirst(new ArrayList<>(jobs)).printStatistics();
-		System.out.println();
-
-		// Shortest remaining time first
-		System.out.println("---------- SRTF ----------");
 		new ShortestRemainingTimeFirst(new ArrayList<>(jobs)).printStatistics();
-		System.out.println();
 
 		System.out.println("Thank you for using James's Scheduler!");
 

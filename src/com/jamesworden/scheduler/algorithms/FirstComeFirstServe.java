@@ -8,6 +8,7 @@ public class FirstComeFirstServe extends Algorithm {
 
 	public FirstComeFirstServe(ArrayList<Job> jobs) {
 		super(jobs);
+		name = "FCFS";
 	}
 
 	protected void iterate() {
@@ -20,12 +21,6 @@ public class FirstComeFirstServe extends Algorithm {
 				currentJob = job;
 			}
 		}
-
-		// If job has not arrived yet create a gap first
-		if (currentJob.getArrivalTime() >= time) {
-			ganttChart.addGap(currentJob.getArrivalTime() - time);
-		}
-
 		completeJob(currentJob);
 	}
 
