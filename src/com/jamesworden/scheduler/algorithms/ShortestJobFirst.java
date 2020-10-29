@@ -12,32 +12,15 @@ public class ShortestJobFirst extends Algorithm {
 	}
 
 	protected void iterate() {
+		// Categorize the remaining jobs in two groups:
+		ArrayList<Job> arrivedJobs = getArrivedJobs(); // Jobs that have arrived
+		ArrayList<Job> nextToArriveJobs = getNextToArriveJobs(); // Jobs that are closest to arriving
 
-		// Loop through each job to see which job(s) has the smallest arrival time(s)
-		ArrayList<Integer> arrivedJobIndexes = new ArrayList<>();
-		int arrivalTime = (int) Double.POSITIVE_INFINITY;
-
-		for (Job job : jobs) {
-
-			if (job.getArrivalTime() < arrivalTime) { // Set the job with the new smallest arrival time
-				arrivedJobIndexes.clear();
-				arrivalTime = job.getArrivalTime();
-			}
-
-			if (job.getArrivalTime() <= arrivalTime) { // Add to arrived job indexes
-				arrivedJobIndexes.add(jobs.indexOf(job));
-			}
+		if (arrivedJobs.isEmpty()) {
+			completeJob(getQuickestJob(nextToArriveJobs));
+		} else {
+			completeJob(getQuickestJob(arrivedJobs));
 		}
-
-		// Pick a job from the job indexes array list based on the shortest burst time
-		Job currentJob = new Job(0, 0, (int) Double.POSITIVE_INFINITY);
-
-		for (int index : arrivedJobIndexes) {
-			if (jobs.get(index).getBurstTime() < currentJob.getBurstTime()) {
-				currentJob = jobs.get(index);
-			}
-		}
-		completeJob(currentJob);
 	}
 
 }

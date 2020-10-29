@@ -12,16 +12,15 @@ public class FirstComeFirstServe extends Algorithm {
 	}
 
 	protected void iterate() {
-
-		// Loop through each job to see which has the smallest arrival time
-		Job currentJob = new Job(0, (int) Double.POSITIVE_INFINITY, 0);
+		// Loop through jobs and completes the one with the quickest burst time
+		Job firstJob = new Job(0,(int) Double.POSITIVE_INFINITY, 0);
 
 		for (Job job : jobs) {
-			if (job.getArrivalTime() < currentJob.getArrivalTime()) {
-				currentJob = job;
+			if (job.getArrivalTime() < firstJob.getArrivalTime()) {
+				firstJob = job;
 			}
 		}
-		completeJob(currentJob);
+		completeJob(firstJob);
 	}
 
 }
