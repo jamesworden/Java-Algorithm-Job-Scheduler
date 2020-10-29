@@ -1,5 +1,6 @@
 package com.jamesworden.scheduler;
 
+import com.jamesworden.scheduler.algorithms.Algorithm;
 import com.jamesworden.scheduler.algorithms.FirstComeFirstServe;
 import com.jamesworden.scheduler.algorithms.ShortestJobFirst;
 import com.jamesworden.scheduler.algorithms.ShortestRemainingTimeFirst;
@@ -46,9 +47,9 @@ public class Scheduler {
 		System.out.println();
 
 		// Run and print algorithm statistics
-		new FirstComeFirstServe(new ArrayList<>(jobs)).printStatistics();
-		new ShortestJobFirst(new ArrayList<>(jobs)).printStatistics();
-		new ShortestRemainingTimeFirst(new ArrayList<>(jobs)).printStatistics();
+		new FirstComeFirstServe(new ArrayList<>(jobs)).process().printStatistics();
+		new ShortestJobFirst(new ArrayList<>(jobs)).process().printStatistics();
+		new ShortestRemainingTimeFirst(new ArrayList<>(jobs)).process().printStatistics();
 
 		System.out.println("Thank you for using James's Scheduler!");
 

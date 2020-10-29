@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 /**
  * Superclass for all algorithms
- * Calls the iterate method until there are no more processed jobs
  */
 public abstract class Algorithm {
 
@@ -18,23 +17,27 @@ public abstract class Algorithm {
 	static int time;
 
 	public Algorithm(ArrayList<Job> inputJobs) {
-
 		jobs = inputJobs;
 		finishedJobs = new ArrayList<>();
 		ganttChart = new GanttChart();
 		time = 0;
+	}
 
+	/**
+	 * calls the iterate method until there are no more processed jobs
+	 * @return Processed algorithm
+	 */
+	public Algorithm process () {
 		// Run algorithm until initial jobs arraylist is empty
 		while (!jobs.isEmpty()) {
-
 			// If there is one job left, complete it
 			if (jobs.size() == 1) {
 				completeJob(jobs.get(0));
-				return;
+				break;
 			}
-
 			iterate();
 		}
+		return this;
 	}
 
 	/**
@@ -80,7 +83,7 @@ public abstract class Algorithm {
 		int arrivalTime = job.getArrivalTime();
 
 		// If job has not arrived yet create a gap first
-		if (arrivalTime >= time) {
+		if (arrivalTime > time) {
 			int gap = arrivalTime - time;
 			ganttChart.addJob(0, gap); // A job with id 0 is interpreted as a gap
 			time += gap;

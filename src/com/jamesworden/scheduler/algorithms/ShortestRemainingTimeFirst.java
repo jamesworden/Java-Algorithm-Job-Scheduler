@@ -12,6 +12,7 @@ public class ShortestRemainingTimeFirst extends Algorithm {
 	}
 
 	protected void iterate() {
+
 		// Categorize the remaining jobs in two groups:
 		ArrayList<Job> arrivedJobs = getArrivedJobs(); // Jobs that have arrived
 		ArrayList<Job> nextToArriveJobs = getNextToArriveJobs(); // Jobs that are closest to arriving
