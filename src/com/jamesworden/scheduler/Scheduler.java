@@ -1,6 +1,5 @@
 package com.jamesworden.scheduler;
 
-import com.jamesworden.scheduler.algorithms.Algorithm;
 import com.jamesworden.scheduler.algorithms.FirstComeFirstServe;
 import com.jamesworden.scheduler.algorithms.ShortestJobFirst;
 import com.jamesworden.scheduler.algorithms.ShortestRemainingTimeFirst;
@@ -10,11 +9,12 @@ import java.util.Scanner;
 
 /**
  * Scheduler for Lab5
+ * @author James Worden
+ * @version 1.0.0
  */
 public class Scheduler {
 
 	private static final Scanner scanner = new Scanner(System.in);
-	private static ArrayList<Job> jobs;
 
 	public static void main(String[] args) {
 
@@ -25,7 +25,7 @@ public class Scheduler {
 		int numJobs = getPositiveInt();
 
 		// Get burst and arrival time for each job
-		jobs = new ArrayList<>();
+		ArrayList<Job> jobs = new ArrayList<>();
 		for (int i = 1; i < numJobs + 1; i++) { // Starting with i = 1 to make the ID's more intuitive
 
 			// Arrival time
@@ -47,9 +47,9 @@ public class Scheduler {
 		System.out.println();
 
 		// Run and print algorithm statistics
-		new FirstComeFirstServe(new ArrayList<>(jobs)).process().printStatistics();
-		new ShortestJobFirst(new ArrayList<>(jobs)).process().printStatistics();
-		new ShortestRemainingTimeFirst(new ArrayList<>(jobs)).process().printStatistics();
+		new FirstComeFirstServe(new ArrayList<>(jobs)).getProcessedAlgorithm().printStatistics();
+		new ShortestJobFirst(new ArrayList<>(jobs)).getProcessedAlgorithm().printStatistics();
+		new ShortestRemainingTimeFirst(new ArrayList<>(jobs)).getProcessedAlgorithm().printStatistics();
 
 		System.out.println("Thank you for using James's Scheduler!");
 
@@ -66,4 +66,5 @@ public class Scheduler {
 		}
 		return Math.abs(scanner.nextInt()); // Convert negative input to positive
 	}
+
 }

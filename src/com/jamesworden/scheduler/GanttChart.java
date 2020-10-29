@@ -1,5 +1,9 @@
 package com.jamesworden.scheduler;
 
+/**
+ * Each algorithm class should contain its own Gantt Chart
+ * Comprised of current time, a chart portion for job data, and a corresponding timeline portion
+ */
 public class GanttChart {
 
 	private int time; // Total and latest time
@@ -50,12 +54,5 @@ public class GanttChart {
 
 	public String getChart() { return chart; }
 	public String getTimeline() { return timeline; }
-
-	/**
-	 * Used for debugging
-	 */
-	public void log(int id, int time) {
-		System.out.println("JOB WITH ID: " + id + " ADDED FOR " + time + " UNITS OF TIME.");
-	}
 
 }

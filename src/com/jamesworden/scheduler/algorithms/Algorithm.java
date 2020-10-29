@@ -24,10 +24,17 @@ public abstract class Algorithm {
 	}
 
 	/**
-	 * calls the iterate method until there are no more processed jobs
+	 * Calls the iterate method until there are no more processed jobs
 	 * @return Processed algorithm
 	 */
-	public Algorithm process () {
+	public Algorithm getProcessedAlgorithm () {
+
+		// Reset job data in case data leaked from previous operations
+		for (Job job : jobs) {
+			job.setWaitingTime(0);
+			job.setTurnaroundTime(0);
+		}
+
 		// Run algorithm until initial jobs arraylist is empty
 		while (!jobs.isEmpty()) {
 			// If there is one job left, complete it
