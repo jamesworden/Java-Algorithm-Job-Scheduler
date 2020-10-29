@@ -18,7 +18,7 @@ public abstract class Algorithm {
 	static int time;
 
 	public Algorithm(ArrayList<Job> inputJobs) {
-		// Initialize
+
 		jobs = inputJobs;
 		finishedJobs = new ArrayList<>();
 		ganttChart = new GanttChart();
@@ -77,9 +77,11 @@ public abstract class Algorithm {
 	 */
 	protected static void completeJob(Job job) {
 
+		int arrivalTime = job.getArrivalTime();
+
 		// If job has not arrived yet create a gap first
-		if (job.getArrivalTime() >= time) {
-			int gap = job.getArrivalTime() - time;
+		if (arrivalTime >= time) {
+			int gap = arrivalTime - time;
 			ganttChart.addJob(0, gap); // A job with id 0 is interpreted as a gap
 			time += gap;
 		}
@@ -87,14 +89,11 @@ public abstract class Algorithm {
 		// Get job data
 		int id = job.getId();
 		int burstTime = job.getBurstTime();
-		int turnaroundTime = time - job.getArrivalTime() + burstTime;
+		int turnaroundTime = time - arrivalTime + burstTime;
 
 		// Update statistics from data
 		ganttChart.addJob(id, burstTime);
 		job.setTurnaroundTime(turnaroundTime);
-
-		// Job could have been partially processed earlier with a wait time already established
-		job.setWaitingTime(time - job.getArrivalTime()); // Time not updated yet, so we don't factor that in
 
 		// Update job status of algorithm
 		finishedJobs.add(job);
@@ -102,6 +101,17 @@ public abstract class Algorithm {
 
 		// Update time
 		time += burstTime;
+
+		// Check if the job has been partially completed by seeing if its waiting time has been set
+		int waitingTime = job.getWaitingTime();
+
+		if (waitingTime > 0) {
+			job.setWaitingTime(time - waitingTime);
+			return;
+		}
+
+		// Job has not been touched before
+		job.setWaitingTime(time - burstTime - job.getArrivalTime());
 
 	}
 
@@ -118,27 +128,17 @@ public abstract class Algorithm {
 			return;
 		}
 
+		// Store the original burst time in waiting time until processed at the very final job completion
+		if (job.getWaitingTime() <= 0) { // If job does not have a waiting time set
+			job.setWaitingTime(job.getBurstTime());
+		}
+
 		// Set partial burst and remaining time
 		int partialBurstTime = job.getBurstTime() - completionTime;
 		int remainingBurstTime = job.getBurstTime() - partialBurstTime;
 		job.setBurstTime(remainingBurstTime);
 
-		// Set the job's waiting time
-		if (job.getWaitingTime() <= 0) {
-			job.setWaitingTime(time - job.getArrivalTime());
-		} else {
-			job.setWaitingTime(job.getWaitingTime());
-		}
-
-		// Set the job's turnaround time
-		int turnaroundTime = job.getTurnaroundTime();
-
-		if (turnaroundTime == 0) { // Not defined yet
-			job.setTurnaroundTime(job.getWaitingTime() - job.getArrivalTime());
-		}
-		job.setTurnaroundTime(turnaroundTime + partialBurstTime); // Adding partial burst time to turnaround time
-
-		// Update statistics from data
+		// Update gantt chart
 		int id = job.getId();
 		ganttChart.addJob(id, partialBurstTime);
 
