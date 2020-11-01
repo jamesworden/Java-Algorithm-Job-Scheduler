@@ -5,6 +5,7 @@ import com.jamesworden.scheduler.algorithms.ShortestJobFirst;
 import com.jamesworden.scheduler.algorithms.ShortestRemainingTimeFirst;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -44,13 +45,20 @@ public class Scheduler {
 		for (Job job : jobs) {
 			System.out.println("Job " + job.getId() + " - "+ job.toString());
 		}
-		System.out.println();
+
+		// Get a start time to calculate time elapsed after calculations
+		Long timeStarted = new Date().getTime();
 
 		// Run and print algorithm statistics
 		new FirstComeFirstServe(new ArrayList<>(jobs)).getProcessedAlgorithm().printStatistics();
 		new ShortestJobFirst(new ArrayList<>(jobs)).getProcessedAlgorithm().printStatistics();
 		new ShortestRemainingTimeFirst(new ArrayList<>(jobs)).getProcessedAlgorithm().printStatistics();
 
+		// Calculate and print time elapsed
+		Long timeFinished = new Date().getTime();
+		long timeElapsed = timeFinished - timeStarted;
+
+		System.out.println("Finished in: " + timeElapsed + " milliseconds!");
 		System.out.println("Thank you for using James's Scheduler!");
 
 	}

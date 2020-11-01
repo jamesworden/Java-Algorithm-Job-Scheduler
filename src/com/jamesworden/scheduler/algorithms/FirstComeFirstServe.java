@@ -12,7 +12,6 @@ public class FirstComeFirstServe extends Algorithm {
 	}
 
 	protected void iterate() {
-
 		// Loop through jobs and completes the one with the quickest burst time
 		Job firstJob = new Job(0,(int) Double.POSITIVE_INFINITY, 0);
 
